@@ -1,28 +1,46 @@
-# python-getting-started
+# GameOn
 
-A barebones Python app, which can easily be deployed to Heroku.
+## Command Shortcuts
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
-
-## Running Locally
-
-Make sure you have Python [installed properly](http://install.python-guide.org).  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+Since we are using multiple settings files, it can be a bit of a nuisance to enter some common commands. Let's create some shortcuts for them!
 
 ```sh
-$ git clone git@github.com:heroku/python-getting-started.git
-$ cd python-getting-started
-
-$ pip install -r requirements.txt
-
-$ createdb python_getting_started
-
-$ python manage.py migrate
-$ python manage.py collectstatic
-
-$ heroku local
+source ../venv_gameon/bin/activate
+export run="python manage.py runserver --settings=main.settings.dev"
+export static="python manage.py collectstatic --settings=main.settings.dev"
+export test="python manage.py test --settings=main.settings.dev"
+export migrate="python manage.py migrate --settings=main.settings.dev"
+export deploy_dev="git push heroku-dev dev:master"
+export deploy_prod="git push heroku-prod master"
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+...and here are some pre-typed ones that are probably not common enough to warrant their own shortcuts.
+
+```sh
+python manage.py makemigrations api_games_v1 --settings=main.settings.dev
+python manage.py createsuperuser --settings=main.settings.dev
+```
+
+---
+
+## Deployment Checklist
+
+- Test dev branch on dev
+  - `git push heroku-dev dev:master`
+- Merge dev/working branch to master
+- Upload to prod
+  - `git push heroku-prod master`
+- Be sure to migrate the Heroku apps as needed!
+
+---
+
+## Various
+
+- add `--app APP` to the end of a command to specify which app
+  - `heroku run python manage.py migrate --app gameon-staging`
+- settings:
+  - `heroku config:set DJANGO_SETTINGS_MODULE=main.settings.prod --app gameon-prod`
+
 
 ## Deploying to Heroku
 
@@ -33,12 +51,3 @@ $ git push heroku master
 $ heroku run python manage.py migrate
 $ heroku open
 ```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
