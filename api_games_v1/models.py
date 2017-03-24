@@ -41,9 +41,11 @@ class Game(BaseModel):
     Model for a single Game instance.
     """
     owner = models.ForeignKey(User)
+
     title = models.CharField(max_length=255)
     platform = models.ForeignKey(
         PlatformModel, related_name="games", blank=True, null=True)
+    finished = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

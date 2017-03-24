@@ -13,6 +13,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     list_display = (
         'owner', 'id', 'title',
+        'platform', 'finished',
         'created', 'modified')
 
 

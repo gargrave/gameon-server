@@ -102,8 +102,10 @@ class GameReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = ('id', 'title', 'platform', 'dates',
-                  'created', 'modified')
+        fields = (
+            'id', 'title', 'platform',
+            'finished', 'dates',
+            'created', 'modified')
 
 
 class GameWriteSerializer(serializers.ModelSerializer):
@@ -117,7 +119,9 @@ class GameWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = ('id', 'title', 'platform', 'created', 'modified')
+        fields = (
+            'id', 'title', 'platform',
+            'finished', 'created', 'modified')
 
     def to_representation(self, obj):
         platform = PlatformModel.objects.get(pk=obj.platform)
@@ -131,6 +135,7 @@ class GameWriteSerializer(serializers.ModelSerializer):
                 'id': platform.id,
                 'title': platform.title,
             },
+            'finished': obj.finished,
             'dates': dates,
             'created': obj.created,
             'modified': obj.modified,
