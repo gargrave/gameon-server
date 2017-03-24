@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models import Game, Tag, TagGameRelation, UserProfile
+from .models import Game, GameDateRelation, PlatformModel,\
+    Tag, TagGameRelation, UserProfile
 
 # Get the UserModel
 UserModel = get_user_model()
@@ -11,7 +12,9 @@ UserModel = get_user_model()
 # Tag Serializers
 ########################################################
 class TagSerializer(serializers.ModelSerializer):
-
+    """
+    Basic serializer for Tag model.
+    """
     class Meta:
         model = Tag
         fields = ('id', 'title')
@@ -19,7 +22,8 @@ class TagSerializer(serializers.ModelSerializer):
 
 class TagRelatedField(serializers.RelatedField):
     """
-    Custom RelatedField serializer for Tags. Simply returns the title of the Tag.
+    Custom RelatedField serializer for Tags.
+    Simply returns the title of the Tag.
     """
 
     def to_representation(self, value):
@@ -132,13 +136,14 @@ class GameWriteSerializer(serializers.ModelSerializer):
             'modified': obj.modified,
         }
 
+
 ########################################################
 # User/Auth Serializers
 ########################################################
-
-
 class UserProfileSerializer(serializers.ModelSerializer):
-
+    """
+    Basic serializer for UserProfile model.
+    """
     class Meta:
         model = UserProfile
         fields = ('pk', 'first_name', 'last_name')
