@@ -19,6 +19,15 @@ class GameList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
+class GameDetail(generics.RetrieveAPIView):
+    """
+    Concrete view for retrieving a model instance.
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Game.objects.all()
+    serializer_class = GameReadSerializer
+
+
 class GameCreate(generics.CreateAPIView):
     """
     Concrete view for creating a model instance.
@@ -40,10 +49,10 @@ class GameCreate(generics.CreateAPIView):
             )
 
 
-class GameDetail(generics.RetrieveUpdateDestroyAPIView):
+class GameUpdate(generics.UpdateAPIView):
     """
-    Concrete view for retrieving, updating or deleting a model instance.
+    Concrete view for updating a model instance.
     """
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Game.objects.all()
-    serializer_class = GameReadSerializer
+    serializer_class = GameWriteSerializer
