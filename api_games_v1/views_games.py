@@ -56,3 +56,27 @@ class GameUpdate(generics.UpdateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Game.objects.all()
     serializer_class = GameWriteSerializer
+
+    def perform_update(self, serializer):
+        game_instance = serializer.save()
+        date_values = self.request.data.get('dates')
+        removed_dates = self.request.data.get('datesRemoved')
+
+        # create any new dates in the request
+        if date_values:
+            for date in date_values:
+                GameDateRelation.objects.get_or_create(
+                    owner=self.request.user,
+                    date=date,
+                    game=game_instance,
+                )
+
+        # delete any dates that have been removed
+        if removed_dates:
+            for date in removed_dates:
+                gdr = GameDateRelation.objects.get(
+                    owner=self.request.user,
+                    date=date,
+                    game=game_instance,
+                )
+                gdr.delete()
