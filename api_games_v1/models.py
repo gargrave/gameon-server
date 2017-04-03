@@ -21,12 +21,31 @@ class UserProfile(BaseModel):
     last_name = models.CharField(max_length=100, blank=True)
 
 
+class PlatformModel(BaseModel):
+    """
+    Model for a single Platform instance.
+    """
+    owner = models.ForeignKey(User)
+    title = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Platform'
+        verbose_name_plural = 'Platforms'
+
+    def __str__(self):
+        return self.title
+
+
 class Game(BaseModel):
     """
     Model for a single Game instance.
     """
     owner = models.ForeignKey(User)
+
     title = models.CharField(max_length=255)
+    platform = models.ForeignKey(
+        PlatformModel, related_name="games", blank=True, null=True)
+    finished = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -60,3 +79,21 @@ class TagGameRelation(BaseModel):
     def __str__(self):
         return 'Game: {} | Tag: {}'.format(
             str(self._game), str(self._tag))
+
+
+class GameDateRelation(models.Model):
+    """
+    A relation tying a Date to a Game.
+    """
+    owner = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    date = models.DateField()
+    game = models.ForeignKey(Game, related_name="dates")
+
+    class Meta:
+        unique_together = ('owner', 'date', 'game')
+
+    def __str__(self):
+        return str(self.date)

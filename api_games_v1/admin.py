@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Game, Tag, TagGameRelation, UserProfile
+from .models import Game, GameDateRelation, PlatformModel,\
+    Tag, TagGameRelation, UserProfile
 
 
 @admin.register(UserProfile)
@@ -12,7 +13,13 @@ class UserProfileAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
     list_display = (
         'owner', 'id', 'title',
+        'platform', 'finished',
         'created', 'modified')
+
+
+@admin.register(PlatformModel)
+class PlatformModelAdmin(admin.ModelAdmin):
+    list_display = ('owner', 'id', 'title')
 
 
 @admin.register(Tag)
@@ -23,3 +30,8 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(TagGameRelation)
 class TagGameRelationAdmin(admin.ModelAdmin):
     list_display = ('id', 'owner', '_tag', '_game')
+
+
+@admin.register(GameDateRelation)
+class GameDateRelationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'owner', 'game', 'date')
