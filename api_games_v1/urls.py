@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^games/update/(?P<pk>[0-9]+)/?$', views_games.GameUpdate.as_view()),
 
     url(r'^platforms/?$', views_platforms.PlatformList.as_view()),
+    url(r'^platforms/(?P<pk>[0-9]+)/?$',
+        views_platforms.PlatformDetail.as_view()),
 
     url(r'^tags/?$', views_tags.TagList.as_view()),
     url(r'^tags/add/?$', views_tags.TagGameRelationCreateView.as_view()),

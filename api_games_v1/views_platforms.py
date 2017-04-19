@@ -17,3 +17,14 @@ class PlatformList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class PlatformDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Concrete view for retrieving, updating or deleting a model instance.
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = PlatformSerializer
+
+    def get_queryset(self):
+        return PlatformModel.objects.filter(owner=self.request.user)
