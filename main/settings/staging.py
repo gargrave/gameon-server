@@ -13,8 +13,8 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 CORS_ORIGIN_WHITELIST = (
-    'https://PLACEHOLDER_URL.com',
-    'PLACEHOLDER_URL.com',
+    'https://gameon-app-dev.netlify.com',
+    'gameon-app-dev.netlify.com',
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
