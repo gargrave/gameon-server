@@ -22,3 +22,5 @@ CORS_ORIGIN_WHITELIST = (
 # for dev builds, read the secret key from file
 with open('etc/dev_secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

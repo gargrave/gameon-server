@@ -16,3 +16,5 @@ CORS_ORIGIN_WHITELIST = (
     'https://PLACEHOLDER_URL.com',
     'PLACEHOLDER_URL.com',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
