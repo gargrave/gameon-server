@@ -17,3 +17,5 @@ CORS_ORIGIN_WHITELIST = (
     'www.gameon-app.com',
     'gameon-app.com',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

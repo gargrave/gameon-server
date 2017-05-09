@@ -16,3 +16,5 @@ CORS_ORIGIN_WHITELIST = (
     'https://gameon-app-dev.netlify.com',
     'gameon-app-dev.netlify.com',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
