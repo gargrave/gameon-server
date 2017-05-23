@@ -13,7 +13,7 @@ def parse_platform(request):
     """
     return PlatformModel.objects.get(
         owner=request.user,
-        id=request.data.get('platformId'))
+        id=request.data.get('platform'))
 
 
 def process_dates(request, game, dates):
