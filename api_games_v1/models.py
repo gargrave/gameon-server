@@ -94,6 +94,7 @@ class GameDateRelation(models.Model):
 
     class Meta:
         unique_together = ('owner', 'date', 'game')
+        ordering = ['-date']
 
     def __str__(self):
         return str(self.date)
